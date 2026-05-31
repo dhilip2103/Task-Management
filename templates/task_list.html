@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>All Tasks</h2>
+<table class="table table-bordered">
+  <thead class="table-dark">
+    <tr>
+      <th>Title</th><th>Status</th>
+      <th>Priority</th><th>Due Date</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for task in tasks %}
+    <tr>
+      <td>{{ task.title }}</td>
+      <td>{{ task.get_status_display }}</td>
+      <td>{{ task.get_priority_display }}</td>
+      <td>{{ task.due_date|default:"-" }}</td>
+      <td>
+        <a href="{% url 'task_update' task.pk %}"
+           class="btn btn-sm btn-warning">Edit</a>
+        <a href="{% url 'task_delete' task.pk %}"
+           class="btn btn-sm btn-danger">Delete</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
